@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     private float movementInputDirection;
     public float movementSpeed = 5f;
     private bool isFacingRight = true;
-    public float jumpForce = 30f;
+    public float jumpForce = 15f;
 
     // groundcheck
     private float moveInput;
@@ -50,17 +50,27 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void CheckInput()
+    private void CheckInput() //All Inputs from the player
     {
         movementInputDirection = Input.GetAxisRaw("Horizontal");
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            Jump();
+        }
     }
 
-    private void ApplyMovement()
+    private void Jump() //Jump function
+    {
+        playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpForce);
+    }
+
+    private void ApplyMovement() //Movement function
     {
         playerRigidbody.velocity = new Vector2(movementSpeed * movementInputDirection, playerRigidbody.velocity.y);
     }
 
-    private void Flip()
+    private void Flip() //Sprite turning left changes Y to 180°, turning right changes X back to 0°
     {
         isFacingRight = !isFacingRight;
         transform.Rotate(0.0f, 180.0f, 0.0f);
