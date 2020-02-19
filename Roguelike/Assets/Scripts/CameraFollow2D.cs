@@ -13,6 +13,15 @@ public class CameraFollow2D : MonoBehaviour
     [SerializeField]
     Vector2 posOffset;
 
+    [SerializeField]
+    float leftLimit;
+    [SerializeField]
+    float rightLimit;
+    [SerializeField]
+    float bottomLimit;
+    [SerializeField]
+    float topLimit;
+
     private Vector3 velocity;
 
     // Start is called before the first frame update
@@ -34,13 +43,21 @@ public class CameraFollow2D : MonoBehaviour
         endPos.z = -10;
 
         //this is how you lerp
-        //transform.position = Vector3.Lerp(startPos, endPos, timeOffset * Time.deltaTime);
+        transform.position = Vector3.Lerp(startPos, endPos, timeOffset * Time.deltaTime);
 
-        transform.position = Vector3.SmoothDamp(startPos, endPos, ref velocity, timeOffset);
-        
-        
-        
+        //Smoothly move the camera towards that target position
+        //transform.position = Vector3.SmoothDamp(startPos, endPos, ref velocity, timeOffset);
+
         //camera transform position will follow players transform position x & y & -10 on z to keep camera away from player
         //transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10);
+
+        //Clamp: setting a limit to value to a certain range
+        transform.position = new Vector3
+        (
+            Mathf.Clamp(transform.position.x, leftLimit, rightLimit),
+            Mathf.Clamp(transform.position.y, bottomLimit, topLimit),
+            transform.position.z
+        );
+
     }
 }

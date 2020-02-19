@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8304762800153840153}
   - component: {fileID: 3055945304077694563}
   - component: {fileID: -340639273800249386}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Grass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70,8 +70,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1137476743
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 7953296568139915108, guid: 20d2794ac2380224ca7225d2dcc331f1,
     type: 3}
