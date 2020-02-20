@@ -60,4 +60,19 @@ public class CameraFollow2D : MonoBehaviour
         );
 
     }
+
+    private void OnDrawGizmos()
+    {
+        //draw a box around the camera boundary
+        Gizmos.color = Color.red;
+        //top
+        Gizmos.DrawLine(new Vector2(leftLimit, topLimit), new Vector2(rightLimit, topLimit));
+        //right
+        Gizmos.DrawLine(new Vector2(rightLimit, topLimit), new Vector2(rightLimit, bottomLimit));
+        //bottom
+        Gizmos.DrawLine(new Vector2(rightLimit, bottomLimit), new Vector2(leftLimit, bottomLimit));
+        //left
+        Gizmos.DrawLine(new Vector2(leftLimit, bottomLimit), new Vector2(leftLimit, topLimit));
+    }
+
 }

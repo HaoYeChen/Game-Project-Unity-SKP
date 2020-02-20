@@ -669,7 +669,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1203164853}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.63, z: -10}
+  m_LocalPosition: {x: 9, y: -24.2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -690,10 +690,10 @@ MonoBehaviour:
   player: {fileID: 1749007737}
   timeOffset: 3
   posOffset: {x: 2, y: 1}
-  leftLimit: 0
-  rightLimit: 6
-  bottomLimit: 0
-  topLimit: 0
+  leftLimit: 2
+  rightLimit: 17.9
+  bottomLimit: -25
+  topLimit: 5
 --- !u!1 &1303147639
 GameObject:
   m_ObjectHideFlags: 0
