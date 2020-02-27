@@ -7,12 +7,15 @@ public class Player : MonoBehaviour
     //movement & jump
     private float movementInputDirection;
     public float movementSpeed = 5f;
-    private bool isFacingRight = true;
     public float jumpForce = 15f;
 
-    // groundcheck
-    private float moveInput;
+    //bool
+    private bool isFacingRight = true;
     private bool isGrounded;
+
+    
+    
+    // groundcheck
     public Transform groundCheck;
     public float checkRadius = 0.5f;
     public LayerMask whatIsGround;
@@ -38,12 +41,19 @@ public class Player : MonoBehaviour
         ApplyMovement();
     }
 
+    private void CheckSurroundings()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
+    }
+
     private void CheckMovementDirection()
     {
+        //Lesser than 0
         if (isFacingRight && movementInputDirection < 0)
         {
             Flip();
         }
+        //Greaster than 0
         else if(!isFacingRight && movementInputDirection > 0)
         {
             Flip();
@@ -52,8 +62,10 @@ public class Player : MonoBehaviour
 
     private void CheckInput() //All Inputs from the player
     {
+        //move input
         movementInputDirection = Input.GetAxisRaw("Horizontal");
 
+        //jump input
         if (Input.GetButtonDown("Jump"))
         {
             Jump();
