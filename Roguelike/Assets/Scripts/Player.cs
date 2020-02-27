@@ -11,14 +11,15 @@ public class Player : MonoBehaviour
 
     //bool
     private bool isFacingRight = true;
-    private bool isGrounded;
     private bool isWalking;
+    private bool isGrounded;
+    private bool canJump;
 
-    
-    
+
+
     // groundcheck
     public Transform groundCheck;
-    public float checkGroundRadius = 0.5f;
+    public float groundCheckRadius = 0.5f;
     public LayerMask whatIsGround;
 
     private Rigidbody2D rb;
@@ -37,19 +38,33 @@ public class Player : MonoBehaviour
         CheckInput();
         CheckMovementDirection();
         UpdateAnimations();
+        CheckIfCanJump();
     }
 
     //Can run once, zero or several times per frame
     private void FixedUpdate()
     {
         ApplyMovement();
+        CheckSurroundings();
     }
 
+    //Ground check
     private void CheckSurroundings()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkGroundRadius, whatIsGround);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
     }
 
+    private void CheckIfCanJump()
+    {
+        if (isGrounded && rb.velocity.y <= 0)
+        {
+            canJump = true;
+        }
+        else
+        {
+            canJump = false;
+        }
+    }
     private void CheckMovementDirection()
     {
         //Lesser than 0
@@ -93,7 +108,11 @@ public class Player : MonoBehaviour
 
     private void Jump() //Jump function
     {
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        if (canJump)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        }
+        
     }
 
     private void ApplyMovement() //Movement function

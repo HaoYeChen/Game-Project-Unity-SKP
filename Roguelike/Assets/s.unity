@@ -121,6 +121,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &39036230 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2416753445174029264, guid: 0747cb2746a7f664b8e7ec2a600495ec,
+    type: 3}
+  m_PrefabInstance: {fileID: 2416753445718227604}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &54784290
 GameObject:
   m_ObjectHideFlags: 0
@@ -1108,6 +1114,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1749007737}
+    - target: {fileID: 264407021919878837, guid: 74574557e8b31cc4cb939bd4fa1ae649,
+        type: 3}
+      propertyPath: timeOffset
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 264407021919878841, guid: 74574557e8b31cc4cb939bd4fa1ae649,
         type: 3}
       propertyPath: m_Name
@@ -1122,12 +1133,37 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2416753445174029264, guid: 0747cb2746a7f664b8e7ec2a600495ec,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.063
+      objectReference: {fileID: 0}
+    - target: {fileID: 2416753445174029264, guid: 0747cb2746a7f664b8e7ec2a600495ec,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.742
+      objectReference: {fileID: 0}
     - target: {fileID: 2416753445174029271, guid: 0747cb2746a7f664b8e7ec2a600495ec,
         type: 3}
       propertyPath: m_Icon
       value: 
       objectReference: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000,
         type: 0}
+    - target: {fileID: 2416753445311858664, guid: 0747cb2746a7f664b8e7ec2a600495ec,
+        type: 3}
+      propertyPath: groundCheck
+      value: 
+      objectReference: {fileID: 39036230}
+    - target: {fileID: 2416753445311858664, guid: 0747cb2746a7f664b8e7ec2a600495ec,
+        type: 3}
+      propertyPath: isFacingRight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2416753445311858664, guid: 0747cb2746a7f664b8e7ec2a600495ec,
+        type: 3}
+      propertyPath: whatIsGround.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 2416753445311858666, guid: 0747cb2746a7f664b8e7ec2a600495ec,
         type: 3}
       propertyPath: m_Offset.x
@@ -1136,7 +1172,7 @@ PrefabInstance:
     - target: {fileID: 2416753445311858666, guid: 0747cb2746a7f664b8e7ec2a600495ec,
         type: 3}
       propertyPath: m_Offset.y
-      value: -0.013088465
+      value: 0.03685713
       objectReference: {fileID: 0}
     - target: {fileID: 2416753445311858666, guid: 0747cb2746a7f664b8e7ec2a600495ec,
         type: 3}
@@ -1146,7 +1182,7 @@ PrefabInstance:
     - target: {fileID: 2416753445311858666, guid: 0747cb2746a7f664b8e7ec2a600495ec,
         type: 3}
       propertyPath: m_Size.y
-      value: 1.5862031
+      value: 1.4863119
       objectReference: {fileID: 0}
     - target: {fileID: 2416753445311858666, guid: 0747cb2746a7f664b8e7ec2a600495ec,
         type: 3}
