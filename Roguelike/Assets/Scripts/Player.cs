@@ -12,30 +12,34 @@ public class Player : MonoBehaviour
     //bool
     private bool isFacingRight = true;
     private bool isGrounded;
+    private bool isWalking;
 
     
     
     // groundcheck
     public Transform groundCheck;
-    public float checkRadius = 0.5f;
+    public float checkGroundRadius = 0.5f;
     public LayerMask whatIsGround;
 
-    Rigidbody2D playerRigidbody;
+    private Rigidbody2D rb;
+    private Animator anim;
 
 
     private void Start()
     {
-        playerRigidbody = GetComponent<Rigidbody2D>();
-
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
-
+    //Runs once per frame
     private void Update()
     {
         CheckInput();
         CheckMovementDirection();
+        UpdateAnimations();
     }
 
+    //Can run once, zero or several times per frame
     private void FixedUpdate()
     {
         ApplyMovement();
@@ -43,7 +47,7 @@ public class Player : MonoBehaviour
 
     private void CheckSurroundings()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkGroundRadius, whatIsGround);
     }
 
     private void CheckMovementDirection()
@@ -58,7 +62,22 @@ public class Player : MonoBehaviour
         {
             Flip();
         }
+
+        if (rb.velocity.x != 0)
+        {
+            isWalking = true;
+        }
+        else
+        {
+            isWalking = false;
+        }
     }
+
+    private void UpdateAnimations()
+    {
+        anim.SetBool("isWalking", isWalking);
+    }
+
 
     private void CheckInput() //All Inputs from the player
     {
@@ -74,12 +93,12 @@ public class Player : MonoBehaviour
 
     private void Jump() //Jump function
     {
-        playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x, jumpForce);
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
     private void ApplyMovement() //Movement function
     {
-        playerRigidbody.velocity = new Vector2(movementSpeed * movementInputDirection, playerRigidbody.velocity.y);
+        rb.velocity = new Vector2(movementSpeed * movementInputDirection, rb.velocity.y);
     }
 
     private void Flip() //Sprite turning left changes Y to 180°, turning right changes X back to 0°
