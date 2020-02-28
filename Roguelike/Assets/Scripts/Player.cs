@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    //movement & jump
+    //movement
     private float movementInputDirection;
     public float movementSpeed = 5f;
+
+    //jump
     public float jumpForce = 15f;
+    public int amountOfJumps = 1;
+    private int amountOfJumpsLeft;
 
     //bool
     private bool isFacingRight = true;
@@ -17,11 +21,12 @@ public class Player : MonoBehaviour
 
 
 
-    // groundcheck
+    //groundcheck
     public Transform groundCheck;
     public float groundCheckRadius = 0.5f;
     public LayerMask whatIsGround;
 
+    //compponent
     private Rigidbody2D rb;
     private Animator anim;
 
@@ -30,6 +35,7 @@ public class Player : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        amountOfJumpsLeft = amountOfJumps;
     }
 
     //Runs once per frame
@@ -56,13 +62,20 @@ public class Player : MonoBehaviour
 
     private void CheckIfCanJump()
     {
+        //isGround & rb velocity y less than 0
         if (isGrounded && rb.velocity.y <= 0)
         {
-            canJump = true;
+            amountOfJumpsLeft = amountOfJumps;
+        }
+
+        //Amount of jumps less than 0 no jump
+        if (amountOfJumpsLeft <= 0)
+        {
+            canJump = false;
         }
         else
         {
-            canJump = false;
+            canJump = true;
         }
     }
     private void CheckMovementDirection()
@@ -78,6 +91,7 @@ public class Player : MonoBehaviour
             Flip();
         }
 
+        //rb velocity x is changing and not = 0
         if (rb.velocity.x != 0)
         {
             isWalking = true;
@@ -88,9 +102,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    //Animations
     private void UpdateAnimations()
     {
+        //Walking animation
         anim.SetBool("isWalking", isWalking);
+
+        anim.SetBool("isGround", isGrounded);
+
+        anim.SetFloat("yVelocity", rb.velocity.y);
     }
 
 
@@ -110,7 +130,11 @@ public class Player : MonoBehaviour
     {
         if (canJump)
         {
+            // x and jumpforce
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            
+            //everytime jumps -1
+            amountOfJumpsLeft--; 
         }
         
     }

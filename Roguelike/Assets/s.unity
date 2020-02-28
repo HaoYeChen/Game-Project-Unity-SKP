@@ -1164,6 +1164,11 @@ PrefabInstance:
       propertyPath: whatIsGround.m_Bits
       value: 1024
       objectReference: {fileID: 0}
+    - target: {fileID: 2416753445311858665, guid: 0747cb2746a7f664b8e7ec2a600495ec,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 1cf1834a2d797e44f8f0371948e3461c, type: 2}
     - target: {fileID: 2416753445311858666, guid: 0747cb2746a7f664b8e7ec2a600495ec,
         type: 3}
       propertyPath: m_Offset.x
