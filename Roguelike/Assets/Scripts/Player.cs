@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     private bool isWalking;
     private bool isGrounded;
     private bool canJump;
+    private bool isTouchingWall;
+    private bool isWallSliding;
 
 
 
@@ -25,6 +27,10 @@ public class Player : MonoBehaviour
     public Transform groundCheck;
     public float groundCheckRadius = 0.5f;
     public LayerMask whatIsGround;
+
+    //wallcheck
+    public Transform wallCheck;
+    public float wallCheckDistance;
 
     //compponent
     private Rigidbody2D rb;
@@ -45,6 +51,7 @@ public class Player : MonoBehaviour
         CheckMovementDirection();
         UpdateAnimations();
         CheckIfCanJump();
+        CheckIfWallSliding();
     }
 
     //Can run once, zero or several times per frame
@@ -54,10 +61,26 @@ public class Player : MonoBehaviour
         CheckSurroundings();
     }
 
+    //Check if wall sliding
+    private void CheckIfWallSliding()
+    {
+        if (isTouchingWall && !isGrounded && rb.velocity.y <0)
+        {
+            isWallSliding = true;
+        }
+        else
+        {
+            isWallSliding = false;
+        }
+    }
+
+
     //Ground check
     private void CheckSurroundings()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
+
+        isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, whatIsGround);
     }
 
     private void CheckIfCanJump()
@@ -107,9 +130,10 @@ public class Player : MonoBehaviour
     {
         //Walking animation
         anim.SetBool("isWalking", isWalking);
-
+        //Grounded
         anim.SetBool("isGround", isGrounded);
-
+        //y velocity 0.0
+        //Checks jump animation jump1=0
         anim.SetFloat("yVelocity", rb.velocity.y);
     }
 

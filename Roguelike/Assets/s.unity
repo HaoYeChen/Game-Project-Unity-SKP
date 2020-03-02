@@ -644,6 +644,36 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   levelGen: {fileID: 1753175876}
+--- !u!1 &1323613768
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1323613769}
+  m_Layer: 12
+  m_Name: Wall Check
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1323613769
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323613768}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.053, y: 0.179, z: -7.0439124}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1749007743}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1551367901
 GameObject:
   m_ObjectHideFlags: 0
@@ -763,6 +793,28 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!4 &1749007743 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2416753445311858671, guid: 0747cb2746a7f664b8e7ec2a600495ec,
+    type: 3}
+  m_PrefabInstance: {fileID: 2416753445718227604}
+  m_PrefabAsset: {fileID: 0}
+--- !u!70 &1749007744
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749007737}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.06988239, y: 0.03288555}
+  m_Size: {x: 0.49194717, y: 1.3290272}
+  m_Direction: 0
 --- !u!1 &1753175875
 GameObject:
   m_ObjectHideFlags: 0
@@ -1141,7 +1193,7 @@ PrefabInstance:
     - target: {fileID: 2416753445174029264, guid: 0747cb2746a7f664b8e7ec2a600495ec,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.742
+      value: -0.698
       objectReference: {fileID: 0}
     - target: {fileID: 2416753445174029271, guid: 0747cb2746a7f664b8e7ec2a600495ec,
         type: 3}
@@ -1163,6 +1215,16 @@ PrefabInstance:
         type: 3}
       propertyPath: whatIsGround.m_Bits
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 2416753445311858664, guid: 0747cb2746a7f664b8e7ec2a600495ec,
+        type: 3}
+      propertyPath: wallCheck
+      value: 
+      objectReference: {fileID: 1323613769}
+    - target: {fileID: 2416753445311858664, guid: 0747cb2746a7f664b8e7ec2a600495ec,
+        type: 3}
+      propertyPath: wallCheckDistance
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 2416753445311858665, guid: 0747cb2746a7f664b8e7ec2a600495ec,
         type: 3}
@@ -1198,6 +1260,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 1.625
+      objectReference: {fileID: 0}
+    - target: {fileID: 2416753445311858666, guid: 0747cb2746a7f664b8e7ec2a600495ec,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2416753445311858669, guid: 0747cb2746a7f664b8e7ec2a600495ec,
         type: 3}
@@ -1265,7 +1332,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2416753445311858666, guid: 0747cb2746a7f664b8e7ec2a600495ec, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0747cb2746a7f664b8e7ec2a600495ec, type: 3}
 --- !u!1001 &6824480910875044422
 PrefabInstance:
