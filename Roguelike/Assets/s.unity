@@ -1226,6 +1226,11 @@ PrefabInstance:
       propertyPath: wallCheckDistance
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 2416753445311858664, guid: 0747cb2746a7f664b8e7ec2a600495ec,
+        type: 3}
+      propertyPath: wallSlideSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2416753445311858665, guid: 0747cb2746a7f664b8e7ec2a600495ec,
         type: 3}
       propertyPath: m_Material

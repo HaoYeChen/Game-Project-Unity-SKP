@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
     //wallcheck
     public Transform wallCheck;
     public float wallCheckDistance;
+    public float wallSlideSpeed;
 
     //compponent
     private Rigidbody2D rb;
@@ -135,6 +136,8 @@ public class Player : MonoBehaviour
         //y velocity 0.0
         //Checks jump animation jump1=0
         anim.SetFloat("yVelocity", rb.velocity.y);
+
+        anim.SetBool("isWallSliding", isWallSliding);
     }
 
 
@@ -163,9 +166,18 @@ public class Player : MonoBehaviour
         
     }
 
-    private void ApplyMovement() //Movement function
+    private void ApplyMovement() 
     {
+        //Movement function
         rb.velocity = new Vector2(movementSpeed * movementInputDirection, rb.velocity.y);
+
+        if (isWallSliding)
+        {
+            if (rb.velocity.y < -wallSlideSpeed)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, -wallSlideSpeed);
+            }
+        }
     }
 
     private void Flip() //Sprite turning left changes Y to 180°, turning right changes X back to 0°
