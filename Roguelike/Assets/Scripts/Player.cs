@@ -131,12 +131,15 @@ public class Player : MonoBehaviour
     {
         //Walking animation
         anim.SetBool("isWalking", isWalking);
+
         //Grounded
         anim.SetBool("isGround", isGrounded);
+
         //y velocity 0.0
         //Checks jump animation jump1=0
         anim.SetFloat("yVelocity", rb.velocity.y);
 
+        //Wall Sliding
         anim.SetBool("isWallSliding", isWallSliding);
     }
 
