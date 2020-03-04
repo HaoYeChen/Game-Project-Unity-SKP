@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     //movement
     private float movementInputDirection;
     public float movementSpeed = 5f;
+    public float movementForceInAir;
 
     //jump
     public float jumpForce = 15f;
@@ -65,7 +66,7 @@ public class Player : MonoBehaviour
     //Check if wall sliding
     private void CheckIfWallSliding()
     {
-        if (isTouchingWall && !isGrounded && rb.velocity.y <0)
+        if (isTouchingWall && !isGrounded && rb.velocity.y <0) //If touching wall and not touching ground and rb velocity y is less than 0, wall sliding become true, else false.
         {
             isWallSliding = true;
         }
@@ -171,10 +172,24 @@ public class Player : MonoBehaviour
 
     private void ApplyMovement() 
     {
-        //Movement function
-        rb.velocity = new Vector2(movementSpeed * movementInputDirection, rb.velocity.y);
+        if (isGrounded)
+        {
+            //Movement function
+            rb.velocity = new Vector2(movementSpeed * movementInputDirection, rb.velocity.y);
+        }
+        else if (!isGrounded && !isWallSliding && movementInputDirection != 0)
+        {
+            Vector2 forceToAdd = new Vector2(movementForceInAir * movementInputDirection, 0);
+            rb.AddForce(forceToAdd);
 
-        if (isWallSliding)
+            if (Mathf.Abs(rb.velocity.x) > movementSpeed)
+            {
+                rb.velocity = new Vector2(movementSpeed * movementInputDirection, rb.velocity.y);
+            }
+        }
+        
+
+        if (isWallSliding) 
         {
             if (rb.velocity.y < -wallSlideSpeed)
             {
@@ -183,9 +198,19 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Flip() //Sprite turning left changes Y to 180°, turning right changes X back to 0°
+    private void Flip() 
     {
-        isFacingRight = !isFacingRight;
-        transform.Rotate(0.0f, 180.0f, 0.0f);
+        if (!isWallSliding) //If wall sliding cant flip, If not wall sliding sprite turning left changes Y to 180°, turning right changes X back to 0°
+        {
+            isFacingRight = !isFacingRight;
+            transform.Rotate(0.0f, 180.0f, 0.0f);
+        }
+        
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
+        
     }
 }
