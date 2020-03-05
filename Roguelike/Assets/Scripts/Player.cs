@@ -8,11 +8,13 @@ public class Player : MonoBehaviour
     private float movementInputDirection;
     public float movementSpeed = 5f;
     public float movementForceInAir;
+    public float airDragMultiplier = 0.95f;
 
     //jump
     public float jumpForce = 15f;
     public int amountOfJumps = 1;
     private int amountOfJumpsLeft;
+    public float variableJumpHeightMultiplier = 0.5f;
 
     //bool
     private bool isFacingRight = true;
@@ -26,7 +28,7 @@ public class Player : MonoBehaviour
 
     //groundcheck
     public Transform groundCheck;
-    public float groundCheckRadius = 0.5f;
+    public float groundCheckRadius = 0.1f;
     public LayerMask whatIsGround;
 
     //wallcheck
@@ -66,7 +68,8 @@ public class Player : MonoBehaviour
     //Check if wall sliding
     private void CheckIfWallSliding()
     {
-        if (isTouchingWall && !isGrounded && rb.velocity.y <0) //If touching wall and not touching ground and rb velocity y is less than 0, wall sliding become true, else false.
+        //If touching wall and not touching ground and rb velocity y is less than 0, wall sliding become true, else false.
+        if (isTouchingWall && !isGrounded && rb.velocity.y < 0) 
         {
             isWallSliding = true;
         }
@@ -155,6 +158,11 @@ public class Player : MonoBehaviour
         {
             Jump();
         }
+
+        if (Input.GetButtonUp("Jump"))
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * variableJumpHeightMultiplier);
+        }
     }
 
     private void Jump() //Jump function
@@ -177,8 +185,10 @@ public class Player : MonoBehaviour
             //Movement function
             rb.velocity = new Vector2(movementSpeed * movementInputDirection, rb.velocity.y);
         }
+        //Not grounded & not wall slidning & movement input direction is not equel to 0
         else if (!isGrounded && !isWallSliding && movementInputDirection != 0)
         {
+            // vector2 x direction = movementForceInAir * movementInputDirection, 0 y direction cuz already moving in x direction
             Vector2 forceToAdd = new Vector2(movementForceInAir * movementInputDirection, 0);
             rb.AddForce(forceToAdd);
 
@@ -187,10 +197,16 @@ public class Player : MonoBehaviour
                 rb.velocity = new Vector2(movementSpeed * movementInputDirection, rb.velocity.y);
             }
         }
+        //not grounded & not wall sliding & movement input direcion is equal to 0
+        else if (!isGrounded && !isWallSliding && movementInputDirection == 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x * airDragMultiplier, rb.velocity.y);
+        }
         
 
         if (isWallSliding) 
         {
+            //rb velocity y is less than -wall slide speed
             if (rb.velocity.y < -wallSlideSpeed)
             {
                 rb.velocity = new Vector2(rb.velocity.x, -wallSlideSpeed);
@@ -200,7 +216,8 @@ public class Player : MonoBehaviour
 
     private void Flip() 
     {
-        if (!isWallSliding) //If wall sliding cant flip, If not wall sliding sprite turning left changes Y to 180°, turning right changes X back to 0°
+        //If wall sliding cant flip, If not wall sliding sprite turning left changes Y to 180°, turning right changes X back to 0°
+        if (!isWallSliding) 
         {
             isFacingRight = !isFacingRight;
             transform.Rotate(0.0f, 180.0f, 0.0f);
@@ -210,6 +227,8 @@ public class Player : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+
         Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y, wallCheck.position.z));
         
     }
