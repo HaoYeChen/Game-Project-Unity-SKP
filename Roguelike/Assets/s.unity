@@ -2695,11 +2695,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2416753445311858664, guid: 0747cb2746a7f664b8e7ec2a600495ec,
-        type: 3}
-      propertyPath: groundCheckRadius
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 2416753445311858669, guid: 0747cb2746a7f664b8e7ec2a600495ec,
         type: 3}
       propertyPath: m_Name
