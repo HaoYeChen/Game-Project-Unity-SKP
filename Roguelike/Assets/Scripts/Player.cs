@@ -16,6 +16,12 @@ public class Player : MonoBehaviour
     private int amountOfJumpsLeft;
     public float variableJumpHeightMultiplier = 0.5f;
 
+    public Vector2 wallHopDirection;
+    public Vector2 wallJumpDirection;
+    public float wallHopForce;
+    public float wallJumpForce;
+    private int facingDirection = 1;
+
     //bool
     private bool isFacingRight = true;
     private bool isWalking;
@@ -46,6 +52,9 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         amountOfJumpsLeft = amountOfJumps;
+        //Normalize make the vector itself = 1
+        wallHopDirection.Normalize();
+        wallJumpDirection.Normalize();
     }
 
     //Runs once per frame
@@ -90,8 +99,8 @@ public class Player : MonoBehaviour
 
     private void CheckIfCanJump()
     {
-        //isGround & rb velocity y less than 0
-        if (isGrounded && rb.velocity.y <= 0)
+        //isGround & rb velocity y less than 0 or wall sliding
+        if ((isGrounded && rb.velocity.y <= 0) || isWallSliding)
         {
             amountOfJumpsLeft = amountOfJumps;
         }
@@ -167,13 +176,27 @@ public class Player : MonoBehaviour
 
     private void Jump() //Jump function
     {
-        if (canJump)
+        if (canJump && !isWallSliding)
         {
             // x and jumpforce
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             
             //everytime jumps -1
             amountOfJumpsLeft--; 
+        }
+        else if (isWallSliding && movementInputDirection == 0 && canJump) //Wall hop
+        {
+            isWallSliding = false;
+            amountOfJumpsLeft--;
+            Vector2 forceToAdd = new Vector2(wallHopForce * wallHopDirection.x * -facingDirection, wallHopForce * wallHopDirection.y);
+            rb.AddForce(forceToAdd, ForceMode2D.Impulse);
+        }
+        else if ((isWallSliding || isTouchingWall) && movementInputDirection != 0 && canJump)
+        {
+            isWallSliding = false;
+            amountOfJumpsLeft--;
+            Vector2 forceToAdd = new Vector2(wallJumpForce * wallJumpDirection.x * movementInputDirection, wallJumpForce * wallJumpDirection.y);
+            rb.AddForce(forceToAdd, ForceMode2D.Impulse);
         }
         
     }
@@ -219,6 +242,7 @@ public class Player : MonoBehaviour
         //If wall sliding cant flip, If not wall sliding sprite turning left changes Y to 180°, turning right changes X back to 0°
         if (!isWallSliding) 
         {
+            facingDirection *= 1;
             isFacingRight = !isFacingRight;
             transform.Rotate(0.0f, 180.0f, 0.0f);
         }
